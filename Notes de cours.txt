@@ -1,0 +1,27 @@
+guillaume.collet@univ-rennes.fr
+
+caractere d'echappement \" ou \n, ça change 
+
+Pour que qlq chose and tous doit etre vrai et ca donne vrai
+
+le or au moins un des truc est vrai
+
+A 	B	A AND B		A OR B
+T	T	T		T
+T	F	F		T
+F	T	F		T
+F	F	F		F
+
+
+Quatre chose:
+liste: des [], peu se repeter, n'importe quoi,  ordonnée et ça commence a 0
+tuple: des (), n'impote quoi, non modifiable, ça sert a python, travail interne de python
+Ensemble =set: pas de repetition des {}, un tas d'élément, non ordonné contrairement aux liste, clé de hash et permet de savoir rapidment si un element appartient à l'ensemble, impossible de mettre une liste dans un set
+dico= des {} des , les clé se comporte comme un ensemble donc en desordre et modifiable: info qualitatif associé a une valeur 
+
+
+
+
+a = []
+for k in range(1,10,2):
+    a.append(k-1)
