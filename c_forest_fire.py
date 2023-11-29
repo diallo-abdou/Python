@@ -3,10 +3,10 @@ import sys
 from pprint import pprint
 from random import shuffle, randint, sample
 
-WIDTH = int(sys.argv[1])
-HEIGHT = int(sys.argv[2])
-DENS = float(sys.argv[3])
-NB_BURN = int(sys.argv[4])
+WIDTH = int(sys.argv[0])
+HEIGHT = int(sys.argv[1])
+DENS = float(sys.argv[2])
+NB_BURN = int(sys.argv[3])
 
 print("VERSION SYS")
 print("width      =", WIDTH)

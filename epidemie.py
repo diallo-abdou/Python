@@ -138,9 +138,9 @@ def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
     print(tau_mort)
     print(dens_tot)
     graphique (list(range(11)),tau_mort)
-      
-        
-        
+    
+    
+    
     # Propagation
     #matrice_propa = propagation(matrice.copy())
     #print_matric(matrice_propa.copy())

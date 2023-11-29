@@ -122,8 +122,8 @@ def simulation_feux(width, height, density, nb_burning):
 parser = argparse.ArgumentParser(description='Simulation de feux de forêt.')
 
     # On ajote les arguments
-parser.add_argument('-w' ,'--width', type=int, default=1000)
-parser.add_argument('-he' ,'--height', type=int, default=1000) # j'ai mis -he car -h creer un conflit avec l'argument help (-h)
+parser.add_argument('-w' ,'--width', type=int, default=10000)
+parser.add_argument('-he' ,'--height', type=int, default=10000) # j'ai mis -he car -h creer un conflit avec l'argument help (-h)
 parser.add_argument('-d' ,'--density', type=float, default=0.3)
 parser.add_argument('-b' ,'--nb_burning', type=int, default=20)
 
