@@ -6,6 +6,19 @@ from PIL import Image
 #import numpy as np
 from  imageio import mimsave
 
+def vent (matrix,direction):
+    voisinnage= [(0,1),(1,0),(0,-1),(-1,0) ]
+    # symboles
+    empty = 0
+    tree = 1
+    burning_tree = 2
+    ashes = 3
+
+    if direction == "nord":
+        voisinnage= [(-1,0)]
+    # nouvelle matrice pour l'étappe suivant
+    nouvelle_matrice = [[0 for _ in range(len(matrice[0]))] for _ in range(len(matrice))]
+
 def matrix_to_colored_image(matrix):
     # On cree une image PIL de la matrice 
     img = Image.new('RGB', (len(matrix[0]), len(matrix)))

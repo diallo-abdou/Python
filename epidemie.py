@@ -72,27 +72,38 @@ def propagation (matrice):
 
     return nouvelle_matrice
 
-    
 
 
-def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
+
+def simul_epidemie (larg, long, sain_nv, sain_v,  atteint):
     
-    if (sain_nv +sain_v+atteint+retabli)>1:
-        message=["La densité des casses des individus depasse 1"]
-        return message
     # On cree d'abord une matrice avec que des 0: pas d'individu
     matrice = [[0 for _ in range(larg)] for _ in range(long)]
     
     
+    nb_case_all = round(larg * long * sain_nv)
+    nb_put = 0
+    #coord_tree = []
+    while nb_put < nb_case_all:
+        row = randint(0, long-1)
+        col = randint(0, larg-1)
+        if matrice[row][col] == 0:
+            matrice[row][col] = 1
+            #coord_tree.append((row,col))
+            nb_put += 1
+    
+    
+    
     # Definition d'une fonction pour le remplissage aleatoir
     def rempli_alea (dens, valeur):
-        nb_case = round(larg * long * dens)
+        nb_case_all= round(larg * long * sain_nv)
+        nb_case = round(int(nb_case_all* dens))
         nb_put = 0
         #coord_tree = []
         while nb_put < nb_case:
             row = randint(0, long-1)
             col = randint(0, larg-1)
-            if matrice[row][col] == 0:
+            if matrice[row][col] == 1:
                 matrice[row][col] = int(valeur)
                 #coord_tree.append((row,col))
                 nb_put += 1
@@ -100,7 +111,7 @@ def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
     
     
     # pour les individu sain non vacine :1 position aleatoi
-    rempli_alea(dens=sain_nv,valeur=1)
+    #rempli_alea(dens=sain_nv,valeur=1)
     
     # pour les individu sain  vacine :2 position aleatoi
     rempli_alea(dens=sain_v,valeur=2)
@@ -108,8 +119,6 @@ def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
     # pour les individu atteint :3 position aleatoi
     rempli_alea(dens=atteint,valeur=3)
     
-    # pour les individu retabli :2 position aleatoi
-    rempli_alea(dens=retabli,valeur=4)
     
     # def fonction pour affiché les matrice
     def print_matric (mat):
@@ -118,26 +127,33 @@ def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
             print(row)
     
     # affiche de la matrice de base
-    print_matric(matrice.copy())
+    #print_matric(matrice.copy())
     
     # Suivi des evolution dans le temps
     mat=matrice.copy()
-    tau_mort=[0]
-    dens_tot=[long*larg]
-    for _ in range(10):
-        matrice_propa = propagation(mat) # propagaton
-        nbr_mort = evolution(matrice_propa.copy(),5)# suivi des mort
-        tau_mort.append(nbr_mort)
+    #tau_mort=[0]
+    #dens_tot=[long*larg*sain_nv]
+    #for _ in range(10):
+        #matrice_propa = propagation(mat) # propagaton
+        #nbr_mort = evolution(matrice_propa.copy(),5)# suivi des mort
+        #tau_mort.append(nbr_mort)
         #print_matric(matrice_propa.copy())
-        dens_tot.append ( (long*larg) - nbr_mort- evolution(matrice_propa.copy(),0))
-        mat=matrice_propa.copy()
+        #dens_tot.append ( (long*larg*sain_nv) - nbr_mort- evolution(matrice_propa.copy(),0))
+        #mat=matrice_propa.copy()
     
-    print_matric(matrice_propa.copy())
+    matrice_suiv = propagation(mat)
+    while matrice_suiv != mat:
+        matrice_suiv = propagation(mat) # propagaton
+        mat= matrice_suiv
     
-    print("************************")
-    print(tau_mort)
-    print(dens_tot)
-    graphique (list(range(11)),tau_mort)
+    nbr_mort = evolution(matrice_suiv.copy(),5)# suivi des mort
+    #tau_mort.append(nbr_mort)
+    #print_matric(matrice_propa.copy())
+    
+    
+    print(nbr_mort)
+    #print(dens_tot)
+    #graphique (list(range(11)),tau_mort)
     
     
     
@@ -150,28 +166,13 @@ def simul_epidemie (larg, long, sain_nv,sain_v , atteint, retabli):
     #nbr_mort = evolution(matrice_propa.copy(),5)
     #print(sum(nbr_mort))
     
-    return matrice_propa
+    return [ nbr_mort,  sain_nv ]
 
 
 
     # On cree d'un objet ArgumentParser
 
 
-parser = argparse.ArgumentParser(description='Simulation d\'une propagation bi-dimensionnelle : épidémie.')
 
-    # On ajote les arguments
-parser.add_argument('-la' ,'--larg', type=int, default=100)
-parser.add_argument('-lo' ,'--long', type=int, default=100) # j'ai mis -he car -h creer un conflit avec l'argument help (-h)
-parser.add_argument('-snv' ,'--sain_nv', type=float, default=0.1)
-parser.add_argument('-sv' ,'--sain_v', type=float, default=0.1)
-parser.add_argument('-at' ,'--atteint', type=float, default=0.1)
-parser.add_argument('-re' ,'--retabli', type=float, default=0.1)
-
-
-# On analyse les arguments de la ligne de commande
-args = parser.parse_args()
-if __name__ == '__main__':
-    simul_epidemie(args.larg, args.long, args.sain_nv, args.sain_v, args.atteint, args.retabli)
-    
-
-#simul_epidemie(10,10,0.3,0.1,0.4,0.1)
+print("Recuperation du nombre de mort et de la densité")
+print(simul_epidemie(10,10,0.1,0.1,0.1) )
