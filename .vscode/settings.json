@@ -1,0 +1,8 @@
+{
+    "workbench.editor.enablePreview": false,
+    "editor.rename.enablePreview": true,
+    "editor.suggest.preview": true,
+    "markdown.preview.markEditorSelection": false,
+    "workbench.editor.enablePreviewFromCodeNavigation": false,
+    "workbench.list.openMode": "singleClick"
+}
